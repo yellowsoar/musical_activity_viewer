@@ -134,25 +134,3 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-
-# ****************************************************************************
-# *                                 GeoDjango                                *
-# ****************************************************************************
-
-if path_env := os.getenv(
-    'SPATIALITE_LIBRARY_PATH',
-    None,
-):
-    SPATIALITE_LIBRARY_PATH = path_env
-if path_env := os.getenv(
-    'GDAL_LIBRARY_PATH',
-    None,
-):
-    GDAL_LIBRARY_PATH = path_env
-
-if path_env := os.getenv(
-    'GEOS_LIBRARY_PATH',
-    None,
-):
-    GEOS_LIBRARY_PATH = path_env
