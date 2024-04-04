@@ -57,3 +57,28 @@ def update_activity(
         'update.html',
         context,
     )
+
+
+def delete_activity(
+    request,
+    pk,
+):
+    activity = models.MusicalActivity.objects.get(
+        id=pk,
+    )
+    form = forms.MusicalActivityForm(
+        instance=activity,
+    )
+    if request.method == "POST":
+        activity.delete()
+        return redirect(
+            'operate_activity',
+        )
+    context = {
+        'form': form,
+    }
+    return render(
+        request,
+        'delete.html',
+        context,
+    )
