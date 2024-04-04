@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+import opendata_tw.views
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import (
@@ -30,6 +31,11 @@ urlpatterns = [
     path(
         'accounts/',
         include('allauth.urls'),
+    ),
+    path(
+        'operation/',
+        opendata_tw.views.activity_operation,
+        name="operate_activity",
     ),
 ]
 
