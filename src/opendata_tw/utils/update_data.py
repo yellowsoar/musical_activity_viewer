@@ -1,6 +1,7 @@
 import json
 
 import requests
+from opendata_tw import serializers
 
 
 def request_data():
@@ -33,3 +34,57 @@ api_remap_table = {
     'startDate': 'time_start',
     'endDate': 'time_end',
 }
+
+
+def retrieve_data():
+    data_json = request_data()
+    for single_activity in data_json:
+        remapped_activity = {}
+        for (
+            activity_key,
+            activity_value,
+        ) in single_activity.items():
+            if activity_key in api_remap_table:
+                remapped_activity.update(
+                    {
+                        api_remap_table.get(
+                            activity_key,
+                        ): activity_value,
+                    },
+                )
+
+        theserializer = serializers.MusicalActivitySerializer(
+            data=remapped_activity,
+        )
+        if not theserializer.is_valid():
+            print(
+                "\n".join(
+                    [
+                        "Activity exist:",
+                        f"{remapped_activity['id']}",
+                        "(Activity creation skipped)",
+                    ],
+                ),
+            )
+            continue
+
+        try:
+            theserializer.save()
+            print(
+                "\n".join(
+                    [
+                        "Activity created:",
+                        f"{theserializer.validated_data}",
+                    ],
+                ),
+            )
+        except:
+            print(
+                "\n".join(
+                    [
+                        "Something wrong here while handling:",
+                        f"{theserializer.validated_data}",
+                    ],
+                ),
+            )
+    pass
