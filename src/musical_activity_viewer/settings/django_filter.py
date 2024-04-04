@@ -1,0 +1,1 @@
+FILTERS_DEFAULT_LOOKUP_EXPR='icontains'
