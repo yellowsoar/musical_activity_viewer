@@ -25,6 +25,14 @@
       </li>
 
     </ul>
+    {% if user.is_authenticated %}
+    <span class="navbar-text">
+      🤨 {{ user.get_username }}
+    </span>
+    <a href="/accounts/logout/" class="btn btn-warning">登出</a>
+    {% else %}
+    <a href="/accounts/login/" class="btn btn-success">登入</a>
+    {% endif %}
   </div>
 </nav>
 
