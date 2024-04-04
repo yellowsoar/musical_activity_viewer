@@ -52,6 +52,9 @@ INSTALLED_APPS = [
     # All-auth
     "allauth",
     "allauth.account",
+    # Django extension
+    "crispy_bootstrap4",
+    "crispy_forms",
     "django_filters",
     "django_q",
     "rest_framework",

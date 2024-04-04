@@ -1,3 +1,4 @@
+from .crispy_forms import *
 from .django import *
 from .django_allauth import *
 from .django_filter import *
