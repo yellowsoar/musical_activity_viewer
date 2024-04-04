@@ -35,7 +35,13 @@
     <tr>
       <td>{{ obj.title }}</td>
       <td>{{ obj.click_through_rate }}</td>
-      <td><a href="{{ obj.url_flyer }}" class="btn btn-info" target="_blank">介紹</a></td>
+      <td>
+        {% if obj.url_flyer != "" %}
+        <a href="{{ obj.url_flyer }}" class="btn btn-info" target="_blank">介紹</a>
+        {% else %}
+        <a href="" class="btn btn-info disabled">介紹</a>
+        {% endif %}
+      </td>
       <td>
         <a href="{% url 'update_activity' obj.id %}" class="btn btn-warning">修改</a>
         <a href="{% url 'delete_activity' obj.id %}" class="btn btn-danger">刪除</a>
