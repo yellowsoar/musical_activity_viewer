@@ -16,6 +16,7 @@ orjson = "^3.10.0"
 django-filter = "^24.2"
 python-benedict = "^0.33.2"
 pendulum = "^3.0.0"
+django-allauth = "^0.61.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest-django = "^4.8.0"
