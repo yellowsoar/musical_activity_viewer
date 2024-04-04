@@ -61,6 +61,14 @@ rm: ## rm container
 	--stop \
 	--force
 
+shell: ## container instance tty
+	$(call FUNC_MAKE_INIT) \
+	&& docker compose \
+	-f container/docker-compose.yml \
+	exec \
+	backend \
+	bash
+
 ## ============================================================================
 ## Python Commands
 
