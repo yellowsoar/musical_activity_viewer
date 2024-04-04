@@ -15,6 +15,7 @@ requests = "^2.31.0"
 orjson = "^3.10.0"
 django-filter = "^24.2"
 pytest-django = "^4.8.0"
+python-benedict = "^0.33.2"
 
 [build-system]
 requires = ["poetry-core"]
