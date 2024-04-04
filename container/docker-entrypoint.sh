@@ -15,3 +15,5 @@ uvicorn \
 	--port 8000 \
 	--access-log &
 
+python manage.py \
+	qcluster
