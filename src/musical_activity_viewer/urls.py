@@ -21,9 +21,18 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import (
     include,
     path,
+    re_path,
 )
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
+    re_path(
+        r'^$',
+        RedirectView.as_view(
+            url='operation/',
+            permanent=False,
+        ),
+    ),
     path(
         "admin/",
         admin.site.urls,
@@ -46,6 +55,13 @@ urlpatterns = [
         'operation/delete/<str:pk>',
         opendata_tw.views.delete_activity,
         name="delete_activity",
+    ),
+    re_path(
+        r'^.*$',
+        RedirectView.as_view(
+            url='/',
+            permanent=False,
+        ),
     ),
 ]
 
