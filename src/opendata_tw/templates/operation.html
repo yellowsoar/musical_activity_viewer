@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div>
+	<button type="button" href="#search" class="btn btn-primary" data-toggle="collapse" aria-pressed="false">搜尋</button>
+	<div id="search" class="collapse">
+		<form method="get">
+			<div class="row row-cols-3">
+			{% for obj in filter.form %}
+				{{ obj|as_crispy_field }}
+			{% endfor %}
+			</div>
+			<input type="submit" class="btn btn-success btn-lg btn-block" />
+		</form><br>
+		<button type="button" href="#search" class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" aria-pressed="false">⬆️ 關閉搜尋條件 ⬆️</button>
+	</div>
+</div>
+
+<hr>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>{{ filter.form.title.label }}</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in page_obj %}
+    <tr>
+      <td>{{ obj.title }}</td>
+      <td>{{ obj.click_through_rate }}</td>
+      <td><a href="{{ obj.url_flyer }}" class="btn btn-info" target="_blank">介紹</a></td>
+      <td>
+        <a href="{% url 'update_activity' obj.id %}" class="btn btn-warning">修改</a>
+        <a href="{% url 'delete_activity' obj.id %}" class="btn btn-danger">刪除</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
