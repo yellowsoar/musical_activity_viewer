@@ -12,6 +12,7 @@ from typing import (
 
 import requests
 from benedict import benedict
+from opendata_tw import serializers
 
 
 def request_schema(
@@ -82,3 +83,54 @@ def gen_category_table(
         key_value = single_category.split(':')
         category_table[key_value[0]] = key_value[1]
     return category_table
+
+
+def update_schema():
+    data_json = request_schema()
+    category_table = gen_category_table(data_json)
+
+    if not category_table:
+        return
+
+    category_data = {}
+    for (
+        category_id,
+        category_name,
+    ) in category_table.items():
+        category_data['id'] = category_id
+        category_data['category_name'] = category_name
+        the_serializer = serializers.ActivityCategorySerializer(
+            data=category_data,
+        )
+
+        if not the_serializer.is_valid():
+            print(
+                " ".join(
+                    [
+                        "Category exist:",
+                        f"{category_data}",
+                        "(category creation skipped)",
+                    ],
+                ),
+            )
+            continue
+
+        try:
+            the_serializer.save()
+            print(
+                " ".join(
+                    [
+                        "Category created:",
+                        f"{the_serializer.validated_data}",
+                    ],
+                ),
+            )
+        except:
+            print(
+                "\n".join(
+                    [
+                        "Something wrong here while handling:",
+                        f"{the_serializer.validated_data}",
+                    ],
+                ),
+            )
