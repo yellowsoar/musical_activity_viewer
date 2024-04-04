@@ -1,6 +1,8 @@
 import json
 
+import pendulum
 import requests
+from musical_activity_viewer import settings
 from opendata_tw import serializers
 
 
@@ -52,6 +54,27 @@ def retrieve_data():
                         ): activity_value,
                     },
                 )
+        if 'time_start' in remapped_activity:
+            remapped_activity['time_start'] = str(
+                pendulum.parse(
+                    remapped_activity['time_start'],
+                )
+                .in_timezone(
+                    settings.TIME_ZONE,
+                )
+                .format('YYYY-MM-DD'),
+            )
+
+        if 'time_end' in remapped_activity:
+            remapped_activity['time_end'] = str(
+                pendulum.parse(
+                    remapped_activity['time_end'],
+                )
+                .in_timezone(
+                    settings.TIME_ZONE,
+                )
+                .format('YYYY-MM-DD'),
+            )
 
         theserializer = serializers.MusicalActivitySerializer(
             data=remapped_activity,
