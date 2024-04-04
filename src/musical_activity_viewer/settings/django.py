@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_filters",
     "django_q",
-    "opendata_tw",
 ]
 
 MIDDLEWARE = [
@@ -135,3 +134,18 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ****************************************************************************
+# *                              Self Developed                              *
+# ****************************************************************************
+
+MAV_APPS = [
+    "opendata_tw",
+]
+
+# ****************************************************************************
+# *                                Opendata_tw                               *
+# ****************************************************************************
+
+if 'opendata_tw' in MAV_APPS:
+    INSTALLED_APPS.append("opendata_tw")
