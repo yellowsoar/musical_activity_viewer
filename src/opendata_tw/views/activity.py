@@ -9,7 +9,9 @@ from opendata_tw import (
     filters,
     forms,
     models,
+    serializers,
 )
+from rest_framework import generics
 
 
 def activity_operation(request):
@@ -85,3 +87,11 @@ def delete_activity(
         'delete.html',
         context,
     )
+
+
+class DRFActivityList(generics.ListAPIView):
+    queryset = models.MusicalActivity.objects.all()
+    serializer_class = serializers.MusicalActivitySerializer
+    filter_backends = (drf_filters.DjangoFilterBackend,)
+    filterset_class = filters.MusicalActivityDRFFilter
+    filterset_fields = '__all__'

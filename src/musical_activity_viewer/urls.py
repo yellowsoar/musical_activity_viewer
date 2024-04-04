@@ -56,6 +56,11 @@ urlpatterns = [
         opendata_tw.views.delete_activity,
         name="delete_activity",
     ),
+    path(
+        'api_list/',
+        opendata_tw.views.DRFActivityList.as_view(),
+        name="api_activity_filter_dev",
+    ),
     re_path(
         r'^.*$',
         RedirectView.as_view(
