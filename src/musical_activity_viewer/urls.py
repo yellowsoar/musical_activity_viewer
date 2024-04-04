@@ -37,6 +37,11 @@ urlpatterns = [
         opendata_tw.views.activity_operation,
         name="operate_activity",
     ),
+    path(
+        'operation/update/<str:pk>',
+        opendata_tw.views.update_activity,
+        name="update_activity",
+    ),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
