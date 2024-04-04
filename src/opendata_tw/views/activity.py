@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import (
     redirect,
     render,
@@ -17,10 +18,21 @@ def activity_operation(request):
         ),
     )
 
+    paginator = Paginator(
+        filter_obj.qs,
+        20,
+    )
+    page = request.GET.get(
+        'page',
+        1,
+    )
+    pagered_queryset = paginator.page(page)
+
     return render(
         request,
         'operation.html',
         {
             'filter': filter_obj,
+            'page_obj': pagered_queryset,
         },
     )
