@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import (
     redirect,
@@ -39,6 +40,7 @@ def activity_operation(request):
     )
 
 
+@login_required()
 def update_activity(
     request,
     pk,
@@ -59,6 +61,7 @@ def update_activity(
     )
 
 
+@login_required()
 def delete_activity(
     request,
     pk,
