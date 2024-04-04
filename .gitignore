@@ -39,7 +39,7 @@
 
 # Directories
 docs/build*
-src/static*
+static*
 
 # Extensions
 
