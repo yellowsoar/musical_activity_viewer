@@ -14,8 +14,12 @@ uvicorn = "^0.29.0"
 requests = "^2.31.0"
 orjson = "^3.10.0"
 django-filter = "^24.2"
-
+pytest-django = "^4.8.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "musical_activity_viewer.settings"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
