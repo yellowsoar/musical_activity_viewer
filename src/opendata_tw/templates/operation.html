@@ -2,6 +2,10 @@
 
 {% load crispy_forms_tags %}
 
+{% block nav_active %}
+<a class="nav-link" href="{% url 'operate_activity' %}">表演資訊<span class="sr-only">(current)</span></a>
+{% endblock nav_active %}
+
 {% block content %}
 <div>
 	<button type="button" href="#search" class="btn btn-primary" data-toggle="collapse" aria-pressed="false">搜尋</button>
