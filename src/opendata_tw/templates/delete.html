@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>是否刪除表演活動? {{ form.instance.title }}</h3>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input class="btn btn-danger btn-block" type="submit" value="確定" />
+  <a class="btn btn-warning btn-block" href="{% url 'operate_activity' %}">取消</a>
+</form>
+
+{{ form }}
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input class="btn btn-danger btn-block" type="submit" value="確定" />
+  <a class="btn btn-warning btn-block" href="{% url 'operate_activity' %}">取消</a>
+</form>
+
+{% endblock  %}
