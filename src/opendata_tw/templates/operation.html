@@ -5,6 +5,7 @@
 {% block content %}
 <div>
 	<button type="button" href="#search" class="btn btn-primary" data-toggle="collapse" aria-pressed="false">搜尋</button>
+	<a href="{% url 'operate_activity' %}" class="btn btn-warning">清除搜尋</a>
 	<div id="search" class="collapse">
 		<form method="get">
 			<div class="row row-cols-3">
