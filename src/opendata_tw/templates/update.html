@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <div class="form-group col-md-6">
+    {{ form }}
+    <input class="btn btn-danger btn-lg btn-block" type="submit" value="更新" />
+    <a href="{% url 'operate_activity' %}" class="btn btn-primary btn-lg btn-block">取消</a>
+    </div>
+  </div>
+</form>
+{% endblock  %}
