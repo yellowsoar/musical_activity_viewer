@@ -6,6 +6,7 @@ from django.shortcuts import (
 from django_filters import rest_framework as drf_filters
 from opendata_tw import (
     filters,
+    forms,
     models,
 )
 
@@ -35,4 +36,24 @@ def activity_operation(request):
             'filter': filter_obj,
             'page_obj': pagered_queryset,
         },
+    )
+
+
+def update_activity(
+    request,
+    pk,
+):
+    activity = models.MusicalActivity.objects.get(
+        id=pk,
+    )
+    form = forms.MusicalActivityForm(
+        instance=activity,
+    )
+    context = {
+        'form': form,
+    }
+    return render(
+        request,
+        'update.html',
+        context,
     )
