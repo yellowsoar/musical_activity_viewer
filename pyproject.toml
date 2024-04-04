@@ -14,9 +14,11 @@ uvicorn = "^0.29.0"
 requests = "^2.31.0"
 orjson = "^3.10.0"
 django-filter = "^24.2"
-pytest-django = "^4.8.0"
 python-benedict = "^0.33.2"
 pendulum = "^3.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest-django = "^4.8.0"
 
 [build-system]
 requires = ["poetry-core"]
