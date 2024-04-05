@@ -45,6 +45,13 @@ class DjangoQTaskMongoHandler(BaseMongoHandler):
         self._connect()
 
 
+class MissedActivityMongoHandler(BaseMongoHandler):
+    def __init__(self):
+        super().__init__()
+        self.collection_name = "missed_activity"
+        self._connect()
+
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -57,6 +64,9 @@ LOGGING = {
         },
         "django_task": {
             "class": DjangoQTaskMongoHandler,
+        },
+        "missed_activity": {
+            "class": MissedActivityMongoHandler,
         },
     },
     "root": {
@@ -82,6 +92,11 @@ LOGGING = {
         },
         "django_task": {
             "handlers": ["django_task"],
+            "level": 1,
+            "propagate": False,
+        },
+        "missed_activity": {
+            "handlers": ["missed_activity"],
             "level": 1,
             "propagate": False,
         },
