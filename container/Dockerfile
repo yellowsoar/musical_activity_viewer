@@ -5,6 +5,7 @@ FROM python:3.12.2-slim-bookworm
 RUN apt-get update \
     && apt-get install \
     -y --no-install-recommends \
+    apache2 \
     && apt-get autoclean
 
 # Install Python Packages
