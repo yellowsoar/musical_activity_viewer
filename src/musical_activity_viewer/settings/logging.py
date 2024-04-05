@@ -38,6 +38,13 @@ class DjangoCRUDMongoHandler(BaseMongoHandler):
         self._connect()
 
 
+class DjangoQTaskMongoHandler(BaseMongoHandler):
+    def __init__(self):
+        super().__init__()
+        self.collection_name = "djangoq_task"
+        self._connect()
+
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -47,6 +54,9 @@ LOGGING = {
         },
         "django_crud": {
             "class": DjangoCRUDMongoHandler,
+        },
+        "django_task": {
+            "class": DjangoQTaskMongoHandler,
         },
     },
     "root": {
@@ -67,6 +77,11 @@ LOGGING = {
         },
         "django_crud": {
             "handlers": ["django_crud"],
+            "level": 1,
+            "propagate": False,
+        },
+        "django_task": {
+            "handlers": ["django_task"],
             "level": 1,
             "propagate": False,
         },
