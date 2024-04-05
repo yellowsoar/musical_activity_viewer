@@ -1,5 +1,11 @@
 export C_FORCE_ROOT="true"
 
+a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests
+
+a2ensite mav.conf
+
+apachectl start
+
 python manage.py \
 	collectstatic \
 	--clear \

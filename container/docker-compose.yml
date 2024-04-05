@@ -4,6 +4,7 @@ services:
     image: ghcr.io/yellowsoar/musical_activity_viewer:latest
     ports:
       - 0.0.0.0:8000:8000
+      - 0.0.0.0:8888:80
     env_file:
       - ../.env
     depends_on:
