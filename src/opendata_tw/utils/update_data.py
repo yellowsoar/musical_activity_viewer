@@ -1,10 +1,13 @@
+import copy
 import json
+import logging
 
 import pendulum
 import requests
 from musical_activity_viewer import settings
 from opendata_tw import serializers
 
+logger_django_crud = logging.getLogger('django_crud')
 
 def request_data():
     data_raw = requests.get(
@@ -39,6 +42,10 @@ api_remap_table = {
 
 
 def retrieve_data():
+    log_extra_crud = {}
+    log_extra_crud['skipped_activities'] = []
+    log_extra_crud['created_activities'] = []
+    log_extra_crud['unknown_activities'] = []
     data_json = request_data()
     for single_activity in data_json:
         remapped_activity = {}
@@ -80,34 +87,32 @@ def retrieve_data():
             data=remapped_activity,
         )
         if not theserializer.is_valid():
-            print(
-                "\n".join(
-                    [
-                        "Activity exist:",
-                        f"{remapped_activity['id']}",
-                        "(Activity creation skipped)",
-                    ],
+            log_extra_crud['skipped_activities'].append(
+                copy.deepcopy(
+                    remapped_activity['id'],
                 ),
             )
             continue
 
         try:
             theserializer.save()
-            print(
-                "\n".join(
-                    [
-                        "Activity created:",
-                        f"{theserializer.validated_data}",
-                    ],
+            log_extra_crud['created_activities'].append(
+                copy.deepcopy(
+                    str(theserializer.validated_data['id']),
                 ),
             )
         except:
-            print(
-                "\n".join(
-                    [
-                        "Something wrong here while handling:",
-                        f"{theserializer.validated_data}",
-                    ],
+            log_extra_crud['unknown_activities'].append(
+                copy.deepcopy(
+                    str(theserializer.validated_data),
                 ),
             )
-    pass
+    logger_django_crud.log(
+        11,
+        "\n".join(
+            [
+                'Musical activity data updated.',
+            ],
+        ),
+        extra=log_extra_crud,
+    )
