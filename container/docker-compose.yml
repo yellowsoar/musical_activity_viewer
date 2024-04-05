@@ -10,9 +10,10 @@ services:
     depends_on:
       - mongodb
 
+  # https://hub.docker.com/r/mongodb/mongodb-community-server/tags?page=&page_size=&ordering=&name=4.
   mongodb:
     container_name: mav_mongodb
-    image: bitnami/mongodb:4.2.21
+    image: mongodb/mongodb-community-server:4.4.8-ubuntu2004
     # AVX issue
     # https://github.com/docker-library/mongo/issues/485#issuecomment-891991814
     restart: always
