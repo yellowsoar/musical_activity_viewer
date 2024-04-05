@@ -19,3 +19,14 @@ services:
       - 27017:27017
     command: mongod --dbpath /tmp
 
+  # https://hub.docker.com/_/mongo-express
+  mongo-express:
+    container_name: mav_express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    env_file:
+      - ../.env
+    depends_on:
+      - mongodb
