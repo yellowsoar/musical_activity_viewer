@@ -6,3 +6,16 @@ services:
       - 0.0.0.0:8000:8000
     env_file:
       - ../.env
+    depends_on:
+      - mongodb
+
+  mongodb:
+    container_name: mav_mongodb
+    image: bitnami/mongodb:4.2.21
+    # AVX issue
+    # https://github.com/docker-library/mongo/issues/485#issuecomment-891991814
+    restart: always
+    ports:
+      - 27017:27017
+    command: mongod --dbpath /tmp
+
