@@ -1,4 +1,6 @@
+import copy
 import json
+import logging
 import re
 from typing import (
     Any,
@@ -13,6 +15,8 @@ from typing import (
 import requests
 from benedict import benedict
 from opendata_tw import serializers
+
+logger_django_crud = logging.getLogger('django_crud')
 
 
 def request_schema(
@@ -86,6 +90,10 @@ def gen_category_table(
 
 
 def update_schema():
+    log_extra_crud = {}
+    log_extra_crud['skipped_categories'] = []
+    log_extra_crud['created_categories'] = []
+    log_extra_crud['unknown_categories'] = []
     data_json = request_schema()
     category_table = gen_category_table(data_json)
 
@@ -104,33 +112,33 @@ def update_schema():
         )
 
         if not the_serializer.is_valid():
-            print(
-                " ".join(
-                    [
-                        "Category exist:",
-                        f"{category_data}",
-                        "(category creation skipped)",
-                    ],
+            log_extra_crud['skipped_categories'].append(
+                copy.deepcopy(
+                    category_data,
                 ),
             )
             continue
 
         try:
             the_serializer.save()
-            print(
-                " ".join(
-                    [
-                        "Category created:",
-                        f"{the_serializer.validated_data}",
-                    ],
+            log_extra_crud['created_categories'].append(
+                copy.deepcopy(
+                    the_serializer.validated_data,
                 ),
             )
         except:
-            print(
-                "\n".join(
-                    [
-                        "Something wrong here while handling:",
-                        f"{the_serializer.validated_data}",
-                    ],
+            log_extra_crud['unknown_categories'].append(
+                copy.deepcopy(
+                    the_serializer.validated_data,
                 ),
             )
+
+    logger_django_crud.log(
+        11,
+        "\n".join(
+            [
+                'Musical activity category schema updated.',
+            ],
+        ),
+        extra=log_extra_crud,
+    )
