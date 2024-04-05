@@ -1,4 +1,35 @@
 import logging
+import os
+
+from log4mongo.handlers import MongoHandler
+
+
+# REF
+# https://github.com/log4mongo/log4mongo-python/blob/c2aac237689e4a3a9abbb61740e6d5d30f8e7be7/log4mongo/handlers.py#L78-L113
+class BaseMongoHandler(MongoHandler):
+    def __init__(self):
+        super().__init__(
+            host=(
+                os.getenv('MONGO_HOST')
+                if os.getenv('MONGO_HOST', None)
+                else "localhost"
+            ),
+        )
+        self.database_name = "django_log"
+        # self.host = "localhost"
+        # self.port = 27017
+        # self.collection_name = ""
+        # self.username = "root"
+        # self.password = "example"
+        # self.authentication_database_name = "admin"
+        # self.fail_silently = False
+        # self.connection = None
+        # self.db = None
+        # self.collection = None
+        # self.authenticated = False
+        # self.formatter = formatter or MongoFormatter()
+        # self._connect()
+
 
 
 LOGGING = {
