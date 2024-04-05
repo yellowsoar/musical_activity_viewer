@@ -16,6 +16,7 @@ RUN pip install \
         && rm -rf /tmp/requirements*
 
 COPY src /web
+COPY reverse_proxy/mav.conf /etc/apache2/sites-available
 COPY container/docker-entrypoint.sh /web/docker-entrypoint.sh
 
 EXPOSE 80
