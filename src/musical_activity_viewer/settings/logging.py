@@ -31,6 +31,12 @@ class BaseMongoHandler(MongoHandler):
         # self._connect()
 
 
+class DjangoCRUDMongoHandler(BaseMongoHandler):
+    def __init__(self):
+        super().__init__()
+        self.collection_name = "django_crud"
+        self._connect()
+
 
 LOGGING = {
     "version": 1,
@@ -38,6 +44,9 @@ LOGGING = {
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
+        },
+        "django_crud": {
+            "class": DjangoCRUDMongoHandler,
         },
     },
     "root": {
@@ -55,6 +64,11 @@ LOGGING = {
                     "%(message)s",
                 ],
             ),
+        },
+        "django_crud": {
+            "handlers": ["django_crud"],
+            "level": 1,
+            "propagate": False,
         },
     },
 }
