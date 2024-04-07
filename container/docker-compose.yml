@@ -5,6 +5,8 @@ services:
     ports:
       - 0.0.0.0:8000:8000
       - 0.0.0.0:8888:80
+      - 0.0.0.0:9001:9001
+      # supervisord
     env_file:
       - ../.env
     depends_on:
