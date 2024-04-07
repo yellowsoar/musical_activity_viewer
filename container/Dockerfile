@@ -16,7 +16,6 @@ RUN pip install \
         -r requirements.txt \
         && rm -rf /tmp/requirements*
 
-COPY src /web
 # Install non-project Python Packages
 RUN pip install \
         --no-cache-dir \
@@ -24,12 +23,13 @@ RUN pip install \
         supervisor
 
 COPY reverse_proxy/mav.conf /etc/apache2/sites-available
-COPY container/docker-entrypoint.sh /web/docker-entrypoint.sh
 COPY reverse_proxy/apache2.conf /etc/apache2/apache2.conf
 COPY supervisord.conf /tmp/supervisord.conf
+COPY container/docker-entrypoint.sh /tmp/docker-entrypoint.sh
+COPY src /web
 
 EXPOSE 80
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /web
-ENTRYPOINT ["bash", "docker-entrypoint.sh"]
+ENTRYPOINT ["bash", "/tmp/docker-entrypoint.sh"]
