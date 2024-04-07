@@ -2,7 +2,7 @@ export C_FORCE_ROOT="true"
 
 a2enmod proxy proxy_http proxy_balancer lbmethod_byrequests
 
-find /etc/apache2/sites-available/ -type f -exec a2ensite {} \;
+a2ensite mav.conf
 
 mkdir -p /var/log/supervisord
 

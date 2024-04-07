@@ -46,6 +46,8 @@ There are at leas two solutions to make it work on the host server.
 - Duplicate `reverse_proxy/mav.conf`.
 - Change the `ServerName` in the newly duplicated `reverse_proxy/mav.conf`.
 - Uncomment the `volumes` in the `docker-compose.yml`.
+- Add newly duplicated file name to `container/docker-entrypoint.sh`  
+  Right after `a2ensite mav.conf`.
 - Restart entire stack with `make go`.
 - Install any http server you like on the host server.
 - Forward the request to localhost:8080
