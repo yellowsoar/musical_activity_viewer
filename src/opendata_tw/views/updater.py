@@ -5,6 +5,18 @@ from opendata_tw import utils
 
 
 @login_required()
+def update_data(
+    request,
+):
+    async_task(
+        utils.retrieve_data(),
+    )
+    return redirect(
+        'operate_activity',
+    )
+
+
+@login_required()
 def update_schema(
     request,
 ):
