@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 import opendata_tw.views
+import mav_djangoq.views
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import (
@@ -55,6 +56,11 @@ urlpatterns = [
         'operation/delete/<str:pk>',
         opendata_tw.views.delete_activity,
         name="delete_activity",
+    ),
+    path(
+        'management/',
+        mav_djangoq.views.django_q_schedule_list,
+        name="list_django_q_schedule",
     ),
     path(
         'activity_schema/update/',

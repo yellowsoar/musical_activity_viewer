@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load tz %}
+
+{% block nav_active %}
+<a class="nav-link" href="{% url 'operate_activity' %}">表演資訊<span class="sr-only">(current)</span></a>
+{% endblock nav_active %}
+
+{% block content %}
+<div>
+	<button type="button" href="#search" class="btn btn-primary" data-toggle="collapse" aria-pressed="false">搜尋</button>
+	<a href="{% url 'list_django_q_schedule' %}" class="btn btn-warning">清除搜尋</a>
+	<div id="search" class="collapse">
+		<form method="get">
+			<div class="row row-cols-3">
+			{% for obj in filter.form %}
+				{{ obj|as_crispy_field }}
+			{% endfor %}
+			</div>
+			<input type="submit" class="btn btn-success btn-lg btn-block" />
+		</form><br>
+		<button type="button" href="#search" class="btn btn-secondary btn-lg btn-block" data-toggle="collapse" aria-pressed="false">⬆️ 關閉搜尋條件 ⬆️</button>
+	</div>
+</div>
+
+<hr>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>{{ filter.form.title.label }}</th>
+      <th scope="col">function</th>
+      <th scope="col">hook</th>
+      <th scope="col">args</th>
+      <th scope="col">kwargs</th>
+      <th scope="col">repeat</th>
+      <th scope="col">next run</th>
+      <th scope="col">cron</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for obj in page_obj %}
+    <tr>
+      <td>{{ obj.id }}</td>
+      <td>{{ obj.func }}</td>
+      <td>{{ obj.hook }}</td>
+      <td>{{ obj.args }}</td>
+      <td>{{ obj.kwargs }}</td>
+      <td>
+        {% if obj.repeats != -1 %}
+        {{ obj.repeats }}
+        {% else %}
+        ∞
+        {% endif %}
+      </td>
+      <td>{{ obj.next_run|timezone:"Asia/Taipei" }}</td>
+      <td>{{ obj.cron }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<nav aria-label="Pager">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1" tabindex="-1">⏮️ 1st</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1">◀️ {{ page_obj.previous_page_number }}</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="?page=1" tabindex="-1">⏮️ 1st</a>
+      </li>
+    {% endif %}
+
+      <li class="page-item disabled">
+        <a class="page-link" href="" tabindex="-1">Current ({{ page_obj.number }})</a>
+      </li>
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}" tabindex="-1">▶️ {{ page_obj.next_page_number }}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" tabindex="-1">Last ({{ page_obj.paginator.num_pages }}) ⏭️</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" tabindex="-1">Last ({{ page_obj.paginator.num_pages }}) ⏭️</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}
