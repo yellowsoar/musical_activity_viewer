@@ -4,8 +4,13 @@ import logging
 
 import pendulum
 import requests
+from django_q.tasks import async_task
 from musical_activity_viewer import settings
-from opendata_tw import serializers
+from opendata_tw import (
+    config,
+    serializers,
+    utils,
+)
 
 logger_django_crud = logging.getLogger('django_crud')
 
@@ -107,6 +112,25 @@ def retrieve_data():
                     str(theserializer.validated_data),
                 ),
             )
+
+        manytomany_fields = {}
+        for item in config.field_model_mapping.keys():
+            manytomany_fields[item] = copy.deepcopy(
+                str(
+                    theserializer.initial_data.pop(item),
+                ).split(
+                    '、',
+                ),
+            )
+        async_task(
+            utils.save_unit(
+                copy.deepcopy(
+                    theserializer.instance,
+                ),
+                manytomany_fields,
+            ),
+        )
+
     logger_django_crud.log(
         11,
         "\n".join(
