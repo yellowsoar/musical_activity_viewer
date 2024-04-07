@@ -167,6 +167,7 @@ USE_X_FORWARDED_HOST=True
 
 MAV_APPS = [
     "opendata_tw",
+    "mav_djangoq",
 ]
 
 # ****************************************************************************
@@ -175,3 +176,10 @@ MAV_APPS = [
 
 if 'opendata_tw' in MAV_APPS:
     INSTALLED_APPS.append("opendata_tw")
+
+# ****************************************************************************
+# *                               MAV_Django-Q                               *
+# ****************************************************************************
+
+if 'mav_djangoq' in MAV_APPS:
+    INSTALLED_APPS.append("mav_djangoq")
