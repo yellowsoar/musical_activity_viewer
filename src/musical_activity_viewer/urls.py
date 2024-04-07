@@ -57,6 +57,11 @@ urlpatterns = [
         name="delete_activity",
     ),
     path(
+        'activity_schema/update/',
+        opendata_tw.views.update_schema,
+        name="update_activity_schema",
+    ),
+    path(
         'api_list/',
         opendata_tw.views.DRFActivityList.as_view(),
         name="api_activity_filter_dev",
