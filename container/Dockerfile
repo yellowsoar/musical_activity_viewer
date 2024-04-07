@@ -20,6 +20,7 @@ COPY src /web
 # Install non-project Python Packages
 RUN pip install \
         --no-cache-dir \
+        sqlite-web \
         supervisor
 
 COPY reverse_proxy/mav.conf /etc/apache2/sites-available
