@@ -50,6 +50,14 @@ def update_activity(
     activity = models.MusicalActivity.objects.get(
         id=pk,
     )
+    if request.method == 'POST':
+        form = forms.MusicalActivityForm(
+            request.POST,
+            instance=activity,
+        )
+        if form.is_valid():
+            form.save()
+        return redirect('/')
     form = forms.MusicalActivityForm(
         instance=activity,
     )
