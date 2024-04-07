@@ -1,7 +1,10 @@
 <!-- MarkdownTOC -->
 
 - [About](#about)
-- [Run on server](#run-on-server)
+- [Run server](#run-server)
+- [DNS](#dns)
+  - [Any HTTP Server](#any-http-server)
+  - [SSH tunnel](#ssh-tunnel)
 - [Contribute](#contribute)
 - [Document](#document)
 
@@ -11,7 +14,7 @@
 
 This is a musical activity viewer webste.
 
-## Run on server
+## Run server
 
 - Install `docker engine`  
   <https://docs.docker.com/engine/install/>
@@ -31,8 +34,27 @@ This is a musical activity viewer webste.
   <http://127.0.0.1:8888>
 - Note:  
   By default all web server listen on 0.0.0.0  
-  To keep it safe please modify it, if you know what you are doing.
+  To keep it safe feel free to modify it.
 - Done!
+
+## DNS
+
+There are at leas two solutions to make it work on the host server.
+
+### Any HTTP Server
+
+- Install any http server you like on the host server.
+- Forward the request to localhost:8080
+- Done!
+
+### SSH tunnel
+
+- Cloudflare tunnel  
+  <https://www.cloudflare.com/products/tunnel/>
+- Ngrok  
+  <https://ngrok.com/docs/getting-started/>
+- Check awesome selfhosted  
+  <https://github.com/awesome-selfhosted/awesome-selfhosted#proxy>
 
 ## Contribute
 
