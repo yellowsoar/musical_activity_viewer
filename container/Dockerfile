@@ -24,6 +24,7 @@ RUN pip install \
 
 COPY reverse_proxy/mav.conf /etc/apache2/sites-available
 COPY container/docker-entrypoint.sh /web/docker-entrypoint.sh
+COPY reverse_proxy/apache2.conf /etc/apache2/apache2.conf
 COPY supervisord.conf /tmp/supervisord.conf
 
 EXPOSE 80
