@@ -30,6 +30,9 @@ gen-env: ## Generate .env file
 ## ============================================================================
 ## docker Commands
 
+go: ## rm->up->log container image via docker
+	make build rm up log
+
 build: ## build container image via docker
 	$(call FUNC_MAKE_INIT) \
 	&& docker build \
