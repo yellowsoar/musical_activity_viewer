@@ -29,7 +29,7 @@ This is a musical activity viewer webste.
   Generate `.env` file  
   `make gen-env`
 - Use the following commands to run MSA  
-  `make rm build up log` or `make build go`
+  `make rm build up log` or `make go`
 - Open the following URL  
   <http://127.0.0.1:8888>
 - Note:  
@@ -43,6 +43,10 @@ There are at leas two solutions to make it work on the host server.
 
 ### Any HTTP Server
 
+- Duplicate `reverse_proxy/mav.conf`.
+- Change the `ServerName` in the newly duplicated `reverse_proxy/mav.conf`.
+- Uncomment the `volumes` in the `docker-compose.yml`.
+- Restart entire stack with `make go`.
 - Install any http server you like on the host server.
 - Forward the request to localhost:8080
 - Done!

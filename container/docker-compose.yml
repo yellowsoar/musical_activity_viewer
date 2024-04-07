@@ -15,10 +15,12 @@ services:
       - ../.env
     depends_on:
       - mongodb
-    volumes:
-      - ../src:/web
-      - ../container/docker-entrypoint.sh:/tmp/docker-entrypoint.sh
-      # - ../supervisord.conf:/web/supervisord.conf
+    # volumes:
+    #   - ../reverse_proxy/custom.conf:/etc/apache2/sites-available/custom.conf
+    # ========== Dev/Debug purpose below ==========
+    #   - ../src:/web
+    #   - ../container/docker-entrypoint.sh:/tmp/docker-entrypoint.sh
+    #   - ../supervisord.conf:/tmp/supervisord.conf
 
   # https://hub.docker.com/r/mongodb/mongodb-community-server/tags?page=&page_size=&ordering=&name=4.
   mongodb:
