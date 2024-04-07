@@ -54,8 +54,10 @@
           <div class="dropdown-divider"></div>
           {% if request.META.HTTP_HOST == "mavtunnel.axios.work" %}
           <a class="dropdown-item" href="/mongo/">Mongo Express</a>
+          <a class="dropdown-item" href="/sqlite_web/">Sqlite-Web</a>
           {% else %}
           <a class="dropdown-item" href="http://127.0.0.1:8081" target="_blank">Mongo Express</a>
+          <a class="dropdown-item" href="http://127.0.0.1:8080" target="_blank">Sqlite-Web</a>
           {% endif %}
         </div>
       </li>
