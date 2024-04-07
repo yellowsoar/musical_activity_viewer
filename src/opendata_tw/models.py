@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 # Create your models here.
@@ -77,7 +79,7 @@ class MusicalActivity(models.Model):
         through="ActivityPerformUnitMapping",
         through_fields=(
             "musical_activity",
-            "unit_name",
+            "unit_id",
         ),
         verbose_name="演出單位",
     )
@@ -88,7 +90,7 @@ class MusicalActivity(models.Model):
         through="ActivityHostUnitMapping",
         through_fields=(
             "musical_activity",
-            "unit_name",
+            "unit_id",
         ),
         verbose_name="主辦單位",
     )
@@ -99,7 +101,7 @@ class MusicalActivity(models.Model):
         through="ActivityAssistUnitMapping",
         through_fields=(
             "musical_activity",
-            "unit_name",
+            "unit_id",
         ),
         verbose_name="協辦單位",
     )
@@ -110,7 +112,7 @@ class MusicalActivity(models.Model):
         through="ActivitySponsorUnitMapping",
         through_fields=(
             "musical_activity",
-            "unit_name",
+            "unit_id",
         ),
         verbose_name="贊助單位",
     )
@@ -121,7 +123,7 @@ class MusicalActivity(models.Model):
         through="ActivityOtherUnitMapping",
         through_fields=(
             "musical_activity",
-            "unit_name",
+            "unit_id",
         ),
         verbose_name="其他單位",
     )
@@ -190,11 +192,15 @@ class ActivityCategory(models.Model):
 
 
 class PerformUnit(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        primary_key=True,
+        editable=False,
+    )
     unit_name = models.CharField(
+        default="",
         help_text="演出單位名稱(Activity/showUnit)",
         max_length=250,
-        unique=True,
-        primary_key=True,
         verbose_name="單位名稱",
     )
     time_created = models.DateTimeField(
@@ -205,6 +211,8 @@ class PerformUnit(models.Model):
 
 class ActivityPerformUnitMapping(models.Model):
     id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
         help_text="Primary key to a activity and show unit mapping",
         primary_key=True,
     )
@@ -212,18 +220,21 @@ class ActivityPerformUnitMapping(models.Model):
         'MusicalActivity',
         models.CASCADE,
     )
-    unit_name = models.ForeignKey(
+    unit_id = models.ForeignKey(
         'PerformUnit',
         models.CASCADE,
     )
 
 
 class HostUnit(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        primary_key=True,
+        editable=False,
+    )
     unit_name = models.CharField(
         help_text="主辦單位(Activity/masterUnit)",
         max_length=250,
-        unique=True,
-        primary_key=True,
         verbose_name="單位名稱",
     )
     time_created = models.DateTimeField(
@@ -234,6 +245,8 @@ class HostUnit(models.Model):
 
 class ActivityHostUnitMapping(models.Model):
     id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
         help_text="Primary key to a activity and show unit mapping",
         primary_key=True,
     )
@@ -241,18 +254,21 @@ class ActivityHostUnitMapping(models.Model):
         'MusicalActivity',
         models.CASCADE,
     )
-    unit_name = models.ForeignKey(
+    unit_id = models.ForeignKey(
         'HostUnit',
         models.CASCADE,
     )
 
 
 class AssistUnit(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        primary_key=True,
+        editable=False,
+    )
     unit_name = models.CharField(
         help_text="協辦單位(Activity/subUnit)",
         max_length=250,
-        unique=True,
-        primary_key=True,
         verbose_name="單位名稱",
     )
     time_created = models.DateTimeField(
@@ -263,6 +279,8 @@ class AssistUnit(models.Model):
 
 class ActivityAssistUnitMapping(models.Model):
     id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
         help_text="Primary key to a activity and show unit mapping",
         primary_key=True,
     )
@@ -270,18 +288,21 @@ class ActivityAssistUnitMapping(models.Model):
         'MusicalActivity',
         models.CASCADE,
     )
-    unit_name = models.ForeignKey(
+    unit_id = models.ForeignKey(
         'AssistUnit',
         models.CASCADE,
     )
 
 
 class SponsorUnit(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        primary_key=True,
+        editable=False,
+    )
     unit_name = models.CharField(
         help_text="贊助單位(Activity/supportUnit)",
         max_length=250,
-        unique=True,
-        primary_key=True,
         verbose_name="單位名稱",
     )
     time_created = models.DateTimeField(
@@ -292,6 +313,8 @@ class SponsorUnit(models.Model):
 
 class ActivitySponsorUnitMapping(models.Model):
     id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
         help_text="Primary key to a activity and show unit mapping",
         primary_key=True,
     )
@@ -299,18 +322,21 @@ class ActivitySponsorUnitMapping(models.Model):
         'MusicalActivity',
         models.CASCADE,
     )
-    unit_name = models.ForeignKey(
+    unit_id = models.ForeignKey(
         'SponsorUnit',
         models.CASCADE,
     )
 
 
 class OtherUnit(models.Model):
+    id = models.UUIDField(
+        default=uuid.uuid4,
+        primary_key=True,
+        editable=False,
+    )
     unit_name = models.CharField(
         help_text="其他單位(Activity/otherUnit)",
         max_length=250,
-        unique=True,
-        primary_key=True,
         verbose_name="單位名稱",
     )
     time_created = models.DateTimeField(
@@ -321,6 +347,8 @@ class OtherUnit(models.Model):
 
 class ActivityOtherUnitMapping(models.Model):
     id = models.UUIDField(
+        default=uuid.uuid4,
+        editable=False,
         help_text="Primary key to a activity and show unit mapping",
         primary_key=True,
     )
@@ -328,7 +356,7 @@ class ActivityOtherUnitMapping(models.Model):
         'MusicalActivity',
         models.CASCADE,
     )
-    unit_name = models.ForeignKey(
+    unit_id = models.ForeignKey(
         'OtherUnit',
         models.CASCADE,
     )
