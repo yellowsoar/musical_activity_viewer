@@ -45,6 +45,11 @@
         {% else %}
         <a href="" class="btn btn-info disabled">介紹</a>
         {% endif %}
+        {% if obj.url_ticket != "" %}
+        <a href="{{ obj.url_ticket }}" class="btn btn-info" target="_blank">購票</a>
+        {% else %}
+        <a href="" class="btn btn-info disabled">購票</a>
+        {% endif %}
       </td>
       <td>
         <a href="{% url 'update_activity' obj.id %}" class="btn btn-warning">修改</a>
